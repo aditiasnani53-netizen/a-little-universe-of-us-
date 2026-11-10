@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eaf5ff">
+  <title>A Little Universe of Us</title>
+  <style>
+    :root{--ink:#426887;--ink2:#6d8eaa;--blue:#dceeff;--blue2:#c8e3fb;--blue3:#a9d0f2;--white:#fff;--lilac:#eee9ff;--pink:#ffe9f1;--line:#d4e7f7;--shadow:0 18px 55px rgba(91,139,178,.16)}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#e5f2ff 0%,#f5faff 52%,#fdf9ff 100%);overflow-x:hidden}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .sky{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+    .cloud{position:absolute;width:170px;height:55px;background:rgba(255,255,255,.66);border-radius:50px;filter:blur(.2px);box-shadow:28px -18px 0 2px rgba(255,255,255,.66),65px -5px 0 -4px rgba(255,255,255,.66),-28px -4px 0 -5px rgba(255,255,255,.66);animation:drift 26s ease-in-out infinite alternate}
+    .c1{top:12%;left:-70px}.c2{top:68%;right:-95px;transform:scale(.8);animation-duration:32s}.c3{top:43%;left:78%;transform:scale(.55);animation-duration:38s}
+    .floaty{position:absolute;color:rgba(117,167,209,.58);font-size:20px;animation:float 5s ease-in-out infinite}.f1{top:20%;left:13%}.f2{top:76%;left:18%;animation-delay:1.4s}.f3{top:26%;right:13%;animation-delay:2s}.f4{top:84%;right:17%;animation-delay:.8s}
+    @keyframes drift{to{transform:translateX(90px)}}@keyframes float{50%{transform:translateY(-13px) rotate(8deg)}}
+    .wrap{position:relative;z-index:1;width:min(960px,calc(100% - 30px));margin:0 auto;padding:35px 0 55px}
+    .topline{display:flex;justify-content:center;align-items:center;gap:9px;color:#789bb8;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px}
+    .topline:before,.topline:after{content:"";height:1px;width:42px;background:#b9d7ef}
+    .shell{background:rgba(255,255,255,.82);border:1px solid rgba(192,220,243,.9);border-radius:28px;box-shadow:var(--shadow);padding:clamp(22px,5vw,48px);backdrop-filter:blur(10px)}
+    .eyebrow{text-align:center;color:#87a9c5;font-size:12px;letter-spacing:.13em;text-transform:uppercase;margin:0 0 12px}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(34px,7vw,58px);line-height:1.08;text-align:center;color:#527da2;margin:0 0 14px}
+    .subtitle{text-align:center;color:#7899b5;line-height:1.7;max-width:560px;margin:0 auto 27px}
+    .bow{color:#8ab5d9;font-size:26px;letter-spacing:8px;text-align:center;margin:0 0 14px}
+    .login-card{width:min(430px,100%);margin:0 auto;background:#f3f9ff;border:1px dashed #b9d8f1;border-radius:22px;padding:24px;text-align:center}
+    .lock{font-size:29px;margin-bottom:7px}
+    .login-card h2{font-family:Georgia,serif;font-size:24px;font-weight:500;margin:0 0 7px;color:#527da2}
+    .small{font-size:13px;color:#88a4bd;line-height:1.6}
+    .field{width:100%;border:1px solid #c9e0f3;border-radius:13px;padding:13px 15px;background:#fff;color:#426887;outline:none;margin:12px 0 10px}
+    .field:focus{border-color:#82b6df;box-shadow:0 0 0 3px #dceeff}
+    .primary,.soft-button{border:0;border-radius:999px;padding:12px 20px;background:#8db9df;color:#fff;font-weight:700;box-shadow:0 7px 18px rgba(112,165,207,.2);transition:transform .18s,background .18s}
+    .primary:hover,.soft-button:hover{transform:translateY(-2px);background:#75a9d5}
+    .error{min-height:20px;color:#b56d8a;font-size:13px;margin:9px 0 0}
+    .privacy-note{margin:20px auto 0;max-width:570px;text-align:center;color:#94aabe;font-size:11px;line-height:1.6}
+    .hidden{display:none!important}
+    .inside-head{text-align:center;padding:8px 0 23px}
+    .inside-head h1{font-size:clamp(32px,6vw,50px)}
+    .name-line{color:#87a8c3;font-family:Georgia,serif;font-style:italic;font-size:17px}
+    .nav{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin:18px 0 25px}
+    .nav button{border:1px solid #d5e7f7;border-radius:999px;background:#f7fbff;color:#6689a7;padding:9px 14px;font-size:13px;transition:.18s}
+    .nav button.active,.nav button:hover{background:#dceeff;border-color:#b9d9f2;color:#426887}
+    .panel{background:#f8fbff;border:1px solid #e0edf8;border-radius:22px;padding:clamp(18px,4vw,30px);min-height:230px}
+    .panel h2{font-family:Georgia,serif;font-weight:500;text-align:center;color:#527da2;font-size:29px;margin-bottom:8px}
+    .panel-intro{text-align:center;color:#8ba6bd;font-size:13px;margin-bottom:23px;line-height:1.6}
+    .card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .note-card{background:#fff;border:1px solid #e0edf8;border-radius:16px;padding:17px;box-shadow:0 5px 15px rgba(109,155,192,.06)}
+    .note-card:nth-child(3n+2){background:#fffafd;border-color:#f3e7f0}.note-card h3{font-family:Georgia,serif;font-weight:500;color:#648aab;margin:0 0 8px;font-size:19px}.note-card p{white-space:pre-wrap;color:#718da6;font-size:14px;line-height:1.75;margin:0}
+    .reason{display:flex;gap:12px;align-items:flex-start;background:white;border:1px solid #e1edf7;border-radius:15px;padding:13px 15px;margin:10px 0;color:#6b8aa5;line-height:1.65}.reason span{color:#e6a8c1}
+    .envelope-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .envelope{border:1px solid #d6e8f7;background:linear-gradient(145deg,#fff 0%,#edf7ff 100%);border-radius:17px;padding:20px 14px;text-align:center;color:#6086a7;min-height:122px;transition:transform .18s,box-shadow .18s}
+    .envelope:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(100,151,190,.12)}.envelope .emoji{font-size:25px;display:block;margin-bottom:8px}.envelope strong{font-family:Georgia,serif;font-weight:500;font-size:18px;display:block}.envelope small{display:block;color:#91a9be;margin-top:5px}
+    .letter-view{background:#fff;border:1px solid #e4edf7;border-radius:16px;padding:22px;margin-top:15px}.letter-view h3{font-family:Georgia,serif;font-weight:500;color:#648aab;font-size:23px}.letter-view p{white-space:pre-wrap;color:#718da6;line-height:1.85;font-size:15px}
+    .footer{text-align:center;padding-top:24px;color:#93abc0;font-size:12px}.footer .heart{color:#e5a6bf;font-size:17px}
+    .back{display:block;margin:17px auto 0;border:0;background:none;color:#83a4bf;text-decoration:underline;text-underline-offset:3px;font-size:13px}
+    .empty{text-align:center;color:#98aec1;padding:22px 8px;font-size:14px}
+    @media(max-width:620px){.wrap{padding-top:23px}.shell{border-radius:22px}.card-grid,.envelope-grid{grid-template-columns:1fr}.nav{gap:7px}.nav button{font-size:12px;padding:9px 11px}.cloud{opacity:.65}}
+  </style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+    <div class="floaty f1">✧</div><div class="floaty f2">♡</div><div class="floaty f3">✦</div><div class="floaty f4">୨୧</div>
+  </div>
+  <main class="wrap">
+    <div class="topline">a tiny place made with love</div>
+    <section class="shell" id="lockedView">
+      <div class="bow">୨୧　✦　୨୧</div>
+      <p class="eyebrow">a birthday surprise</p>
+      <h1>A Little Universe<br>of Us</h1>
+      <p class="subtitle">A little collection of memories, love notes and all the small things I hope you never forget.</p>
+      <div class="login-card">
+        <div class="lock">✉️</div>
+        <h2>Our little secret</h2>
+        <p class="small">This little world is just for you.<br>Enter our special passphrase to open it.</p>
+        <form id="unlockForm">
+          <input class="field" id="passphrase" type="password" autocomplete="off" placeholder="Our secret passphrase" aria-label="Our secret passphrase" required>
+          <button class="primary" type="submit">Open your surprise ♡</button>
+        </form>
+        <div class="error" id="error" role="status"></div>
+      </div>
+      <p class="privacy-note">Your personal notes are stored here in encrypted form. The passphrase is not saved in this website.</p>
+    </section>
+
+    <section class="shell hidden" id="giftView">
+      <div class="inside-head">
+        <div class="bow">୨୧　♡　୨୧</div>
+        <p class="eyebrow">made just for you</p>
+        <h1>Happy Birthday<span id="recipientHeading"></span>!</h1>
+        <p class="name-line" id="fromLine">A little universe of us</p>
+      </div>
+      <nav class="nav" aria-label="Gift sections">
+        <button class="active" data-section="memories">Our memories</button>
+        <button data-section="reasons">Why I love you</button>
+        <button data-section="letters">Open when...</button>
+        <button data-section="reminders">Little reminders</button>
+        <button data-section="birthday">Birthday letter</button>
+      </nav>
+      <div class="panel" id="contentPanel" aria-live="polite"></div>
+      <div class="footer"><div class="heart">♡</div> made with all my love, just for you <div>୨୧　✧　୨୧</div></div>
+    </section>
+  </main>
+<script>
+  // Replace the empty string below with the complete line generated by letter-maker.html.
+  const ENCRYPTED_GIFT = "";
+  const ITERATIONS = 310000;
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+  const fromB64url = (s) => {
+    const base64 = s.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat((4 - s.length % 4) % 4);
+    const binary = atob(base64);
+    return Uint8Array.from(binary, ch => ch.charCodeAt(0));
+  };
+  async function decryptGift(passphrase) {
+    const raw = fromB64url(ENCRYPTED_GIFT);
+    const packageData = JSON.parse(decoder.decode(raw));
+    if (packageData.v !== 1) throw new Error("Unsupported gift format");
+    const material = await crypto.subtle.importKey("raw", encoder.encode(passphrase), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey(
+      {name:"PBKDF2", salt:fromB64url(packageData.salt), iterations:ITERATIONS, hash:"SHA-256"},
+      material, {name:"AES-GCM", length:256}, false, ["decrypt"]
+    );
+    const plain = await crypto.subtle.decrypt({name:"AES-GCM", iv:fromB64url(packageData.iv)}, key, fromB64url(packageData.data));
+    return JSON.parse(decoder.decode(plain));
+  }
+  const lockedView = document.getElementById("lockedView");
+  const giftView = document.getElementById("giftView");
+  const errorBox = document.getElementById("error");
+  const panel = document.getElementById("contentPanel");
+  let gift = null;
+  function make(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (text !== undefined) el.textContent = text;
+    return el;
+  }
+  function panelHeading(title, intro) {
+    panel.replaceChildren();
+    panel.append(make("h2", "", title));
+    panel.append(make("p", "panel-intro", intro));
+  }
+  function showEmpty(message) { panel.append(make("p", "empty", message)); }
+  function showSection(section) {
+    document.querySelectorAll(".nav button").forEach(btn => btn.classList.toggle("active", btn.dataset.section === section));
+    if (section === "memories") {
+      panelHeading("Our memories ♡", "Little moments that have a special place in my heart.");
+      const items = gift.memories || [];
+      if (!items.length) return showEmpty("A few favourite moments will live here.");
+      const grid = make("div", "card-grid");
+      items.forEach(item => { const card=make("article","note-card"); card.append(make("h3","",item.title)); card.append(make("p","",item.text)); grid.append(card); });
+      panel.append(grid);
+    } else if (section === "reasons") {
+      panelHeading("Why I love you ♡", "A few of the many little reasons, written just for you.");
+      const items = gift.reasons || [];
+      if (!items.length) return showEmpty("The little reasons will appear here.");
+      items.forEach(item => { const row=make("div","reason"); row.append(make("span","","♡")); row.append(make("div","",item)); panel.append(row); });
+    } else if (section === "letters") {
+      panelHeading("Open when... 💌", "Choose an envelope. Each one has something I wanted you to hear.");
+      const items = gift.letters || [];
+      if (!items.length) return showEmpty("Your little letters will be tucked in here.");
+      const grid=make("div","envelope-grid");
+      items.forEach((item,index) => {
+        const button=make("button","envelope"); button.type="button";
+        button.append(make("span","emoji","✉️")); button.append(make("strong","",item.title)); button.append(make("small","","tap to open ♡"));
+        button.addEventListener("click",()=>openLetter(item)); grid.append(button);
+      });
+      panel.append(grid);
+    } else if (section === "reminders") {
+      panelHeading("Little reminders ✨", "For the days when you need a tiny reminder of how loved you are.");
+      const items=gift.reminders || [];
+      if (!items.length) return showEmpty("Your reminders will be waiting here.");
+      items.forEach(item=>{const row=make("div","reason");row.append(make("span","","✧"));row.append(make("div","",item));panel.append(row);});
+    } else if (section === "birthday") {
+      panelHeading("A letter for your birthday ♡", "A few words from me to you.");
+      if (!gift.birthdayLetter) return showEmpty("Your birthday letter will appear here.");
+      const card=make("article","note-card");card.style.padding="24px";card.append(make("p","",gift.birthdayLetter));panel.append(card);
+    }
+  }
+  function openLetter(item) {
+    const old=panel.querySelector(".letter-view"); if(old) old.remove();
+    const box=make("article","letter-view");
+    box.append(make("h3","",item.title));
+    box.append(make("p","",item.body));
+    const back=make("button","back","← Back to the envelopes");back.type="button";back.addEventListener("click",()=>showSection("letters"));
+    box.append(back);panel.append(box);box.scrollIntoView({behavior:"smooth",block:"nearest"});
+  }
+  document.querySelectorAll(".nav button").forEach(btn=>btn.addEventListener("click",()=>showSection(btn.dataset.section)));
+  document.getElementById("unlockForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    const passphrase=document.getElementById("passphrase").value;
+    errorBox.textContent="";
+    if (!ENCRYPTED_GIFT) { errorBox.textContent="Your gift is nearly ready — add your encrypted letters first."; return; }
+    const submit=event.submitter; submit.disabled=true; submit.textContent="Opening your surprise...";
+    try {
+      gift=await decryptGift(passphrase);
+      document.getElementById("recipientHeading").textContent=gift.recipientName ? " " + gift.recipientName : "";
+      document.getElementById("fromLine").textContent=gift.senderName ? "A little birthday love from " + gift.senderName : "A little universe made with love";
+      lockedView.classList.add("hidden");giftView.classList.remove("hidden");showSection("memories");window.scrollTo({top:0,behavior:"smooth"});
+    } catch (err) {
+      errorBox.textContent="That passphrase didn't open the letters. Check it and try again.";
+      document.getElementById("passphrase").select();
+    } finally { submit.disabled=false;submit.textContent="Open your surprise ♡"; }
+  });
+</script>
+</body>
+</html>

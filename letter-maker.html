@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#eaf5ff">
+  <title>Make Your Birthday Letters</title>
+  <style>
+    :root{--ink:#426887;--muted:#819db6;--line:#d4e7f7;--blue:#8db9df;--pale:#f3f9ff}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#e5f2ff,#fbfaff);color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;padding:25px 14px 50px}
+    main{max-width:790px;margin:auto;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,38px);box-shadow:0 18px 55px rgba(91,139,178,.14)}
+    .bow{text-align:center;color:#8ab5d9;font-size:24px;letter-spacing:8px;margin-bottom:12px}.eyebrow{text-align:center;text-transform:uppercase;letter-spacing:.14em;color:#89a9c4;font-size:11px}h1{text-align:center;font:500 clamp(30px,6vw,43px)/1.12 Georgia,serif;color:#527da2;margin:10px 0} .intro{text-align:center;color:var(--muted);line-height:1.7;font-size:14px;max-width:590px;margin:0 auto 24px}
+    .privacy{background:#f0f8ff;border:1px solid #d9ebf9;border-radius:14px;padding:14px 16px;color:#6689a7;line-height:1.6;font-size:13px;margin:20px 0 26px}.group{border-top:1px solid #e4eef7;padding-top:21px;margin-top:22px}h2{font:500 22px Georgia,serif;color:#6489aa;margin:0 0 6px}.hint{font-size:12px;color:#8ca6bc;margin:0 0 13px;line-height:1.5}.field-label{display:block;font-size:13px;color:#6486a4;margin:13px 0 6px}input,textarea{width:100%;border:1px solid #cfe2f2;border-radius:12px;padding:12px 13px;background:#fff;color:#426887;font:14px/1.6 inherit;outline:none}textarea{min-height:100px;resize:vertical}input:focus,textarea:focus{border-color:#8db9df;box-shadow:0 0 0 3px #e6f3ff}.two{display:grid;grid-template-columns:1fr 1fr;gap:13px}.btn{display:inline-block;border:0;border-radius:999px;padding:13px 20px;background:#8db9df;color:#fff;font-weight:700;cursor:pointer}.btn:hover{background:#75a9d5}.btn.secondary{background:#e8f3fc;color:#5e86a8}.action{text-align:center;margin-top:26px}.message{font-size:13px;color:#6c8daa;line-height:1.6;margin-top:12px;min-height:20px}.output{display:none;margin-top:25px;padding:18px;background:#f5faff;border:1px dashed #b8d8f1;border-radius:15px}.output textarea{min-height:95px;font:12px/1.5 ui-monospace,monospace;overflow-wrap:anywhere}.warning{color:#9c7185;font-size:12px;line-height:1.6;margin-top:12px}.footer{text-align:center;color:#94abc0;font-size:11px;margin-top:27px}
+    @media(max-width:560px){.two{grid-template-columns:1fr}main{border-radius:19px}}
+  </style>
+</head>
+<body><main>
+  <div class="bow">୨୧　♡　୨୧</div><p class="eyebrow">a private little writing room</p><h1>Make your birthday letters</h1>
+  <p class="intro">Write your notes here, then lock the whole gift with a secret passphrase. This page encrypts everything in your browser before you copy the result into your website.</p>
+  <div class="privacy"><strong>Privacy note:</strong> This tool does not send your writing to a server or save it. Keep your original letters somewhere private too. The encrypted result is safe to put in your public website, provided you use a strong passphrase and never add the passphrase to the website code.</div>
+  <form id="giftForm">
+    <div class="two">
+      <div><label class="field-label" for="recipient">His name or nickname (optional)</label><input id="recipient" maxlength="50" placeholder="e.g. my favourite human"></div>
+      <div><label class="field-label" for="sender">Your name or nickname (optional)</label><input id="sender" maxlength="50" placeholder="e.g. your sunshine"></div>
+    </div>
+    <section class="group"><h2>Our memories ♡</h2><p class="hint">One memory per line. Use: <strong>Title | what you want to remember</strong></p><textarea id="memories" placeholder="That one silly call | I still smile whenever I think about it.&#10;My favourite little moment | The way you made an ordinary day feel special."></textarea></section>
+    <section class="group"><h2>Why I love you ♡</h2><p class="hint">Write one reason per line. Keep it as short or as long as you like.</p><textarea id="reasons" placeholder="The way you make me laugh.&#10;How thoughtful you are.&#10;The little things you probably don't realise I notice."></textarea></section>
+    <section class="group"><h2>Open when... 💌</h2><p class="hint">Each note becomes a clickable envelope. Add your own words in each box.</p>
+      <label class="field-label" for="miss">Open when you miss me</label><textarea id="miss" placeholder="A little note for when we're apart..."></textarea>
+      <label class="field-label" for="hug">Open when you need a hug</label><textarea id="hug" placeholder="Imagine the biggest hug from me..."></textarea>
+      <label class="field-label" for="smile">Open when you need a smile</label><textarea id="smile" placeholder="Something to make you smile..."></textarea>
+      <label class="field-label" for="hard">Open when you've had a hard day</label><textarea id="hard" placeholder="A reminder that I'm cheering for you..."></textarea>
+    </section>
+    <section class="group"><h2>Little reminders ✨</h2><p class="hint">One reminder per line. These appear as sweet little notes.</p><textarea id="reminders" placeholder="You are so loved.&#10;I'm always proud of you.&#10;Don't forget to take a little break today."></textarea></section>
+    <section class="group"><h2>A letter for your birthday ♡</h2><p class="hint">This is the main birthday message that appears in its own section.</p><textarea id="birthday" placeholder="My dearest...&#10;&#10;Happy birthday..." style="min-height:190px"></textarea></section>
+    <section class="group"><h2>Lock it with your secret passphrase 🔐</h2><p class="hint">Use a memorable but hard-to-guess passphrase, ideally 5 random words or 16+ characters. Do not use your GitHub password. He will need this exact passphrase to open the gift.</p>
+      <label class="field-label" for="secret">Secret passphrase</label><input id="secret" type="password" autocomplete="new-password" minlength="12" required placeholder="At least 12 characters">
+      <label class="field-label" for="confirm">Confirm passphrase</label><input id="confirm" type="password" autocomplete="new-password" minlength="12" required placeholder="Type it again">
+    </section>
+    <div class="action"><button class="btn" id="encryptButton" type="submit">Encrypt my birthday gift ♡</button><div class="message" id="status" role="status"></div></div>
+  </form>
+  <section class="output" id="output"><h2>Your encrypted gift is ready ♡</h2><p class="hint">Copy the entire line below. It contains encrypted data, not readable letter text.</p><textarea id="result" readonly></textarea><div class="action"><button class="btn" id="copyButton" type="button">Copy encrypted line</button></div><p class="warning">Important: save your passphrase separately and share it with him through a different channel. If you forget it, the letters cannot be recovered. Do not paste the passphrase into GitHub.</p></section>
+  <div class="footer">made with care · nothing is uploaded by this page</div>
+</main>
+<script>
+  const ITERATIONS = 310000;
+  const enc = new TextEncoder();
+  const toB64url = bytes => {
+    let binary=""; bytes.forEach(byte=>binary+=String.fromCharCode(byte));
+    return btoa(binary).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/g,"");
+  };
+  const lines = value => value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  const memories = value => lines(value).map(line=>{const split=line.indexOf("|");return split<0?{title:"A little memory",text:line}:{title:line.slice(0,split).trim()||"A little memory",text:line.slice(split+1).trim()};});
+  const letters = [
+    ["Open when you miss me","miss"],["Open when you need a hug","hug"],["Open when you need a smile","smile"],["Open when you've had a hard day","hard"]
+  ].map(([title,id])=>({title,body:document.getElementById(id).value.trim()})).filter(item=>item.body);
+  document.getElementById("giftForm").addEventListener("submit",async event=>{
+    event.preventDefault();
+    const status=document.getElementById("status"),button=document.getElementById("encryptButton");
+    const pass=document.getElementById("secret").value,confirm=document.getElementById("confirm").value;
+    if(pass.length<12){status.textContent="Please use at least 12 characters for the passphrase.";return;}
+    if(pass!==confirm){status.textContent="The two passphrases don't match yet.";return;}
+    const gift={
+      recipientName:document.getElementById("recipient").value.trim(),
+      senderName:document.getElementById("sender").value.trim(),
+      memories:memories(document.getElementById("memories").value),
+      reasons:lines(document.getElementById("reasons").value),
+      letters:[
+        ["Open when you miss me","miss"],["Open when you need a hug","hug"],["Open when you need a smile","smile"],["Open when you've had a hard day","hard"]
+      ].map(([title,id])=>({title,body:document.getElementById(id).value.trim()})).filter(item=>item.body),
+      reminders:lines(document.getElementById("reminders").value),
+      birthdayLetter:document.getElementById("birthday").value.trim()
+    };
+    const hasContent=gift.memories.length||gift.reasons.length||gift.letters.length||gift.reminders.length||gift.birthdayLetter;
+    if(!hasContent){status.textContent="Add at least one memory, reason, letter, reminder or birthday note first.";return;}
+    if(!window.crypto?.subtle){status.textContent="Secure encryption isn't available in this browser. Open this page using its https:// GitHub Pages address.";return;}
+    button.disabled=true;button.textContent="Encrypting...";status.textContent="Your writing is being encrypted on this device...";
+    try{
+      const salt=crypto.getRandomValues(new Uint8Array(16));
+      const iv=crypto.getRandomValues(new Uint8Array(12));
+      const material=await crypto.subtle.importKey("raw",enc.encode(pass),"PBKDF2",false,["deriveKey"]);
+      const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:ITERATIONS,hash:"SHA-256"},material,{name:"AES-GCM",length:256},false,["encrypt"]);
+      const encrypted=await crypto.subtle.encrypt({name:"AES-GCM",iv},key,enc.encode(JSON.stringify(gift)));
+      const bundle={v:1,salt:toB64url(salt),iv:toB64url(iv),data:toB64url(new Uint8Array(encrypted))};
+      const payload=toB64url(enc.encode(JSON.stringify(bundle)));
+      document.getElementById("result").value='const ENCRYPTED_GIFT = "'+payload+'";';
+      document.getElementById("output").style.display="block";
+      status.textContent="Done! Your text has been encrypted. Copy the line below.";
+      document.getElementById("output").scrollIntoView({behavior:"smooth",block:"start"});
+    }catch(error){status.textContent="Encryption didn't complete. Please try again in a current browser on the https:// page.";}
+    finally{button.disabled=false;button.textContent="Encrypt my birthday gift ♡";}
+  });
+  document.getElementById("copyButton").addEventListener("click",async()=>{
+    const field=document.getElementById("result");
+    try{await navigator.clipboard.writeText(field.value);document.getElementById("copyButton").textContent="Copied! ♡";}
+    catch(error){field.focus();field.select();document.execCommand("copy");document.getElementById("copyButton").textContent="Copied — if not, select and copy the line";}
+  });
+</script></body></html>
